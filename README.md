@@ -10,8 +10,7 @@ Generate Steam login template for nodejs in nodejs!
 
 ## Creating new project
 - `steamexpress <foldername>`
-- optional --socket/-s for socket.io support
-
+    - optional --socket/-s for socket.io support
 - `cd <foldername>`
 - `npm install`
 - `node app.js`
