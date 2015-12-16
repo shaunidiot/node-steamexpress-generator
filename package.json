@@ -1,6 +1,6 @@
 {
     "name": "node-steamexpress-generator",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Generate Steam login template for nodejs in nodejs!",
     "main": "bin/steamexpress",
     "scripts": {
