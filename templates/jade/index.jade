@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+    head
+        title #{title}
+    body
+        if session == ''
+            a(href='/login')
+                img(src='./images/steam_login.png')
+        else                
+            a(href='/logout') Logout #{session}
+                
