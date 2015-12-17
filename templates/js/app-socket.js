@@ -84,12 +84,17 @@ io.use(sharedSession(session, {
 }));
 
 io.on('connection', function(socket) {
-    socketUsers[socket.id] = socket;
+    socketUsers.push(socket);
 
     console.log('Player connected: ' + socket.id);
 
     socket.on('disconnect', function() {
-        delete socketUsers[socket.id];
+        for(var i=0; i < socketUsers.length; i++) {
+            if(socketUsers[i].id == socket.id) {
+                delete socketUsers[i];
+                break;
+            }
+        }
         console.log(socketUsers.length + ' players online.');
     });
 
