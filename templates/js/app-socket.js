@@ -12,9 +12,6 @@ var session = require('express-session')({
     key: 'secret.sid',
     resave: true,
     saveUninitialized: true,
-    cookie: {
-        maxAge: 3600000
-    }
 });
 
 var sharedSession = require('express-socket.io-session');
@@ -35,12 +32,10 @@ function normalizePort(val) {
     var port = parseInt(val, 10);
 
     if (isNaN(port)) {
-        // named pipe
         return val;
     }
 
     if (port >= 0) {
-        // port number
         return port;
     }
 
@@ -54,7 +49,6 @@ function onError(error) {
 
     var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
-    // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
         console.error(bind + ' requires elevated privileges');
@@ -89,13 +83,7 @@ io.on('connection', function(socket) {
     console.log('Player connected: ' + socket.id);
 
     socket.on('disconnect', function() {
-        for(var i=0; i < socketUsers.length; i++) {
-            if(socketUsers[i].id == socket.id) {
-                delete socketUsers[i];
-                break;
-            }
-        }
-        console.log(socketUsers.length + ' players online.');
+        socketUsers.splice(socketUsers.indexOf(socket), 1);
     });
 
     function broadcast(key, value) {
