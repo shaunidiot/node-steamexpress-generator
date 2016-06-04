@@ -1,6 +1,6 @@
 {
     "name": "node-steamexpress-generator",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Generate Steam login template for nodejs in nodejs!",
     "main": "bin/steamexpress",
     "scripts": {
@@ -25,9 +25,14 @@
     "homepage": "https://github.com/shaunidiot/node-steamexpress-generator#readme",
     "dependencies": {
         "commander": "^2.9.0",
-        "fs-extra": "^0.26.2",
+        "fs-extra": "^0.30.0",
+        "os": "^0.1.1",
         "path": "^0.12.7",
-        "readline": "^1.2.1",
-        "sorted-object": "^1.0.0"
+        "readline": "^1.3.0",
+        "sorted-object": "^2.0.0"
+    },
+    "preferGlobal": true,
+    "bin": {
+        "steamexpress": "./bin/steamexpress"
     }
 }
