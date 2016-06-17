@@ -1,10 +1,7 @@
 var express = require('express');
 var path = require('path');
-var debug = require('debug')('workspace:server');
 var http = require('http');
 
-var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session')({
@@ -50,15 +47,15 @@ function onError(error) {
 
     switch (error.code) {
         case 'EACCES':
-        console.error(bind + ' requires elevated privileges');
-        process.exit(1);
-        break;
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
         case 'EADDRINUSE':
-        console.error(bind + ' is already in use');
-        process.exit(1);
-        break;
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
         default:
-        throw error;
+            throw error;
     }
 }
 
@@ -72,9 +69,6 @@ function onListening() {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -114,6 +108,9 @@ app.get("/login", function(req, res) {
 
 app.get("/verify", function(req, res) {
     createRelyingParty(req).verifyAssertion(req, function(e, result) {
+        if (typeof result == 'undefined') {
+            return res.redirect("/");
+        }
 
         if (!result.authenticated) {
             return res.redirect("/");
@@ -126,10 +123,13 @@ app.get("/verify", function(req, res) {
             return res.redirect("/");
         }
 
+        if (!result.claimedIdentifier.startsWith('http://steamcommunity.com/openid/id/') && !result.claimedIdentifier.startsWith('https://steamcommunity.com/openid/id/')) {
+            return res.redirect("/");
+        }
+
         req.session.user = matches[1]; // steam64
         return res.redirect("/");
     });
-
 });
 
 app.get("/logout", function(req, res) {
