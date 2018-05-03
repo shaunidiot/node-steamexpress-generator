@@ -1,5 +1,7 @@
 # node-steamexpress-generator
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/shaunidiot/node-steamexpress-generator.svg)](https://greenkeeper.io/)
+
 [![npm](https://img.shields.io/npm/dt/node-steamexpress-generator.svg)]()
 [![npm](https://img.shields.io/npm/v/node-steamexpress-generator.svg)]()
 
